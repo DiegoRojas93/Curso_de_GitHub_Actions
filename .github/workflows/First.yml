@@ -6,8 +6,8 @@ on:
       - Feature
 
 env:
-  USER_NAME: "Diego Rojas"
-  USER_PASSWORD: 1234
+  USER_NAME: ${{ secrets.USER_ACTION }}
+  USER_PASSWORD: ${{ secrets.PASSWORD_ACTION }}
 
 jobs:
 
