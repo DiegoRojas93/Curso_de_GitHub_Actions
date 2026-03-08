@@ -31,4 +31,14 @@ jobs:
     steps:
       - name: Probando el if
         if: ${{ vars.ANYVARIABLE == 123456 }}
-        run: echo "✅ Paso el test"
+        run: |
+          echo "✅ Paso el test"
+    
+  funciones:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Probando contians
+        if: ${{ contains ( github.actor, 'Diego' ) }}
+        run: echo "✅ El usuario tiene a Diego"
