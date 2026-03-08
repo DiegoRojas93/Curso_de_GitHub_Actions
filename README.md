@@ -1,3 +1,3 @@
 # Curso de GitHub Actions
 
-vO.O.1
+VERSION: 0.0.0

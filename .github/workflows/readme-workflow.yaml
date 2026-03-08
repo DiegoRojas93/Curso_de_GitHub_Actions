@@ -6,6 +6,9 @@ on:
       - main
       - Feature
 
+permissions:
+  contents: write
+
 jobs:
   updateVersion:
     runs-on: ubuntu-latest
@@ -13,17 +16,29 @@ jobs:
     steps: 
 
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: getVersion
         uses: paulhatch/semantic-version@v5.4.0
         id: version
         with: 
-          major_pattern: "major:"
-          minor_pattern: "feature"
-          version_format: "${major}.${minor}.${patch}-prerelease${increment}"
+          major_pattern: "Major:"
+          minor_pattern: "Feature:"
+          version_format: "${major}.${minor}.${patch}"
 
-      - name: Obtener version
+      - name: Modificar el READEME.md
         env:
           NEW_VERSION: ${{ steps.version.outputs.version }}
         run: |
-          echo "${{env.NEW_VERSION}}"
+          sed -i "s/VERSION:.*/VERSION: $NEW_VERSION/" README.md
+          cat README.md
+
+      - name: Commit cambios
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+          git add README.md
+          git commit -m "update README version" || echo "No changes"
+          git push
