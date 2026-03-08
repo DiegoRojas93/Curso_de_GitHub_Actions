@@ -24,7 +24,8 @@ jobs:
       - name: getVersion
         uses: paulhatch/semantic-version@v5.4.0
         id: version
-        with: 
+        with:
+          tag_prefix: "v"
           major_pattern: "Major:"
           minor_pattern: "Feature:"
           version_format: "${major}.${minor}.${patch}"
@@ -37,27 +38,20 @@ jobs:
           mv tmp.json package.json
           cat package.json
 
-      - name: Guardar el commit solo para el package.json
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-
-          git add package.json
-          git commit -m "Update package.json version" || echo "No changes"
-          git push
-
-      - name: Guardar el commit solo para el READEME.md
+      - name: Guardar el commit solo para el README.md
         env:
           NEW_VERSION: ${{ steps.version.outputs.version }}
         run: |
-          sed -i "s/VERSION:.*/VERSION: $NEW_VERSION/" README.md
+          sed -i "s/VERSION: .*/VERSION: $NEW_VERSION/" README.md
           cat README.md
 
-      - name: Guardar el cambio en el README
+      - name: Commit de los cambios
+        env:
+          NEW_VERSION: ${{ steps.version.outputs.version }}
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add README.md
-          git commit -m "Update README.md version" || echo "No changes"
+          git add package.json README.md
+          git commit -m "Cambios actualizados: update version $NEW_VERSION" || echo "No changes"
           git push
