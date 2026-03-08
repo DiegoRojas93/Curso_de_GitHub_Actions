@@ -10,7 +10,7 @@ Esto con el fin de modificar el versionamieto y mostrarlo en dichos documentos c
 <footer>
   <H1 align="center">
     <font color="red">
-      VERSION: 1.0.0
+      VERSION: 2.0.0
     </font>
   </H1>
   <p align="center">Creado con ❤️ por Diego Rojas</p>
