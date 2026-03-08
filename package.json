@@ -1,0 +1,20 @@
+{
+  "name": "curso_de_github_actions",
+  "version": "1.0.0",
+  "description": "vO.O.1",
+  "homepage": "https://github.com/DiegoRojas93/Curso_de_GitHub_Actions#readme",
+  "bugs": {
+    "url": "https://github.com/DiegoRojas93/Curso_de_GitHub_Actions/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DiegoRojas93/Curso_de_GitHub_Actions.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

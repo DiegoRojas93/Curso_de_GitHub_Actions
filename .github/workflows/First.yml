@@ -3,7 +3,7 @@ name: First
 on:
   push:
     branches:
-      - Feature
+      - Clases
 
 env:
   USER_NAME: "Diego Rojas"
@@ -38,11 +38,35 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    outputs:
+      artifact: ${{ steps.message.outputs.existFile }}
+
     steps:
       - name: Probando contians
         if: ${{ contains ( github.actor, 'Diego' ) }}
         run: echo "✅ El usuario tiene a Diego"
+
+      - name: Revisa el repositorio
+        uses: actions/checkout@v6
         
-      - name: Probando mostrar si un archivo no exite
-        if: ${{ hashFiles( 'package.json' ) == '' }}
-        run: echo "🚫 El archivo package.json no existe"
+      - name: Verificar si existe package.json
+        id: message
+        run: |
+          if [ -f package.json ]; then
+            echo "existFile=true" >> $GITHUB_OUTPUT
+          else
+            echo "existFile=false" >> $GITHUB_OUTPUT
+          fi
+
+  showFile:
+
+    runs-on: ubuntu-latest
+    needs: funciones
+
+    steps:
+      - name: Revisa el repositorio
+        uses: actions/checkout@v6
+
+      - name: Mostrar el archivo package.json si existe
+        if: ${{ needs.funciones.outputs.artifact == 'true' }}
+        run: cat ./package.json
