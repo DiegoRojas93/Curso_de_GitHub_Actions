@@ -42,3 +42,7 @@ jobs:
       - name: Probando contians
         if: ${{ contains ( github.actor, 'Diego' ) }}
         run: echo "✅ El usuario tiene a Diego"
+        
+      - name: Probando mostrar si un archivo no exite
+        if: ${{ hashFiles( 'package.json' ) == '' }}
+        run: echo "🚫 El archivo package.json no existe"
