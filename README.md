@@ -5,6 +5,7 @@ Esto con el fin de modificar el versionamieto y mostrarlo en dichos documentos c
 
 * Major: Incrementa al version
 * Feature: Incremente el minor de la version
+
 ---
 <footer>
   <H1 align="center">
