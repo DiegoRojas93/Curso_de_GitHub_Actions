@@ -16,8 +16,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: greeting
+      - name: textos
         run: |
           echo "Hello world! I am ${{ env.USER_NAME }}"
           echo "password: ${{ env.USER_PASSWORD }}"
           echo "My OS is: ${{ runner.os }}"
+          echo "My GitHub is: ${{ github.actor }}"
+          echo "The name's repository is: ${{ github.repository }}"
