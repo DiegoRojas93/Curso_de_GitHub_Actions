@@ -23,3 +23,12 @@ jobs:
           echo "My OS is: ${{ runner.os }}"
           echo "My GitHub is: ${{ github.actor }}"
           echo "The name's repository is: ${{ github.repository }}"
+
+  condicionales:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Probando el if
+        if: ${{ vars.ANYVARIABLE == 123456 }}
+        run: echo "✅ Paso el test"
