@@ -25,7 +25,7 @@ jobs:
         uses: paulhatch/semantic-version@v5.4.0
         id: version
         with:
-          tag_prefix: "v"
+          tag_prefix: "v"               # Importante agregar que lea el tag, sin él no aumanta más alla de la VERSION: 1.0.0
           major_pattern: "Major:"
           minor_pattern: "Feature:"
           version_format: "${major}.${minor}.${patch}"
