@@ -6,6 +6,8 @@ on:
       - main
       - Feature
 
+# Permitir los cambios para el repositorio
+
 permissions:
   contents: write
 
@@ -27,18 +29,35 @@ jobs:
           minor_pattern: "Feature:"
           version_format: "${major}.${minor}.${patch}"
 
-      - name: Modificar el READEME.md
+      - name: Modificar package.json
+        env:
+          NEW_VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          jq ".version = \"$NEW_VERSION\"" package.json > tmp.json
+          mv tmp.json package.json
+          cat package.json
+
+      - name: Guardar el commit solo para el package.json
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+          git add package.json
+          git commit -m "Update package.json version" || echo "No changes"
+          git push
+
+      - name: Guardar el commit solo para el READEME.md
         env:
           NEW_VERSION: ${{ steps.version.outputs.version }}
         run: |
           sed -i "s/VERSION:.*/VERSION: $NEW_VERSION/" README.md
           cat README.md
 
-      - name: Commit cambios
+      - name: Guardar el cambio en el README
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
 
           git add README.md
-          git commit -m "update README version" || echo "No changes"
+          git commit -m "Update README.md version" || echo "No changes"
           git push
